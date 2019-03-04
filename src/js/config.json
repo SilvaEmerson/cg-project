@@ -1,0 +1,12 @@
+{
+    "keys": {
+        "y": {
+            "ArrowDown": -10,
+            "ArrowUp": 10
+        },
+        "x": {
+            "ArrowLeft": -10,
+            "ArrowRight": 10
+        }
+    }
+}
