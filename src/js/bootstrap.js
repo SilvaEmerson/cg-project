@@ -1,9 +1,30 @@
 import * as THREE from "three";
 import * as OrbitControls from "three-orbitcontrols";
 import * as GLTFLoader from "three-gltf-loader";
+import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
 import { keys } from "./config.json";
 
-const loader = new GLTFLoader();
+let mtlLoader = new MTLLoader();
+ 
+let objLoader = new OBJLoader();
+
+mtlLoader.setTexturePath('../assets/models/');
+
+mtlLoader.load('../assets/models/chr_sword.mtl', (materials) => {
+  materials.preload()
+  objLoader.setMaterials(materials)
+  objLoader.load('../assets/models/chr_sword.obj', (object) => {
+    scene.add(object)
+    console.log(object)
+    object.position.x = 0
+    object.position.y = 0
+    object.position.z = 0
+    object.scale.x = 4
+    object.scale.y = 4
+    object.scale.z = 4
+  })
+});
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -11,50 +32,19 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
 const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 scene.background = new THREE.Color(0xcccccc);
-scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
-[camera.position.z, camera.position.x, camera.position.y] = [500, 50, 0];
+[camera.position.z, camera.position.x, camera.position.y] = [10, 0, 0];
 
-const light = new THREE.AmbientLight(0x404040); // soft white light
+const light = new THREE.DirectionalLight({color: 0x404040}); // soft white light
+light.position.set(0, 0, 2)
 scene.add(light);
-
-var loadedObject = THREE.Object3D();
-
-const loadObject = new Promise((resolve, reject) => {
-  loader.load(
-    "../assets/models/Flamingo.glb",
-    obj => {
-      resolve(obj);
-    },
-    undefined,
-    err => reject(err.message)
-  );
-});
-
-loadObject
-  .then(object => {
-    scene.add(object.scene);
-    loadedObject = object.scene;
-
-    document.addEventListener(
-      "keydown",
-      ev => {
-        keys.y.hasOwnProperty(ev.code)
-          ? (loadedObject.position.y += keys.y[ev.code])
-          : keys.x.hasOwnProperty(ev.code)
-          ? (loadedObject.position.x += keys.x[ev.code])
-          : undefined;
-      },
-      false
-    );
-  })
-  .catch(err => console.log(err.message));
 
 export function animate() {
   requestAnimationFrame(animate);
