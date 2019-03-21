@@ -12,6 +12,7 @@
     "es6-promise": "^4.2.5",
     "three": "^0.100.0",
     "three-fbx-loader": "^1.0.3",
+    "three-fbxloader-offical": "^1.0.0",
     "three-gltf-loader": "^1.102.0",
     "three-mtl-loader": "^1.0.2",
     "three-obj-loader": "^1.1.3",

@@ -2,24 +2,24 @@
 
 ## Installing dependencies
 
-```shell
+```shel
 yarn install
 ```
 
  or, if you're using `npm`:
 
-```shell
+```shel
 npm i
 ```
 
 ## Start application
 
-```shell
+```shel
 yarn start
 ```
 
 or
 
-```shell
+```shel
 npm start
 ```
