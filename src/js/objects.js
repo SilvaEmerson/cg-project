@@ -9,10 +9,25 @@ const objLoader = new OBJLoader();
 
 const fbxLoader = new FBXLoader();
 
-export const loadWalking = scene => ( 
-    fbxLoader.load('../assets/models/Walking.fbx', 
+mtlLoader.setTexturePath('../assets/models/');
+
+export const loadScenario = scene => (
+    mtlLoader.load('../assets/models/cenario exagono.mtl', (materials) => {
+      materials.preload()
+      objLoader.setMaterials(materials)
+      objLoader.load('../assets/models/cenario exagono.obj', (object) => {
+        console.log(object)
+        scene.add(object)
+      })
+    })
+);
+
+
+export const loadWalking = (scene, objs) => ( 
+    fbxLoader.load('../assets/models/Samba Dancing.fbx', 
         object => {
-            scene.add(object);
+            scene.add( object );
+ 
             object.position.x = 0;
             object.position.y = 0;
             object.position.z = 0;
@@ -20,19 +35,19 @@ export const loadWalking = scene => (
     )
 )
 
-mtlLoader.setTexturePath('../assets/models/');
 
 export const loadSword = scene => (
     mtlLoader.load('../assets/models/chr_sword.mtl', (materials) => {
       materials.preload()
       objLoader.setMaterials(materials)
       objLoader.load('../assets/models/chr_sword.obj', (object) => {
+        scene.add(object);
         object.position.x = 0
         object.position.y = 0
         object.position.z = 0
-        object.scale.x = 4
-        object.scale.y = 4
-        object.scale.z = 4
+        object.scale.x = 10
+        object.scale.y = 10
+        object.scale.z = 10
       })
     })
 )
