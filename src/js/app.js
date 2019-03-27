@@ -1,4 +1,4 @@
-import { animate } from "./bootstrap"
+import { animate } from "./initializer"
 
 function init() {
     animate();
