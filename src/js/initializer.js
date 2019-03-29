@@ -14,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 const renderer = new THREE.WebGLRenderer();
 const clock = new THREE.Clock();
-const objs = [];
+const objs = {};
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -23,8 +23,30 @@ scene.background = new THREE.Color(0xcccccc);
 
 // Load objects
 //loadWalking(scene, objs);
-loadScenario(scene);
-loadSword(scene);
+loadScenario()
+    .then(scenario => {
+        scene.add(scenario);
+        scenario.position.y = 0;
+        scenario.position.z = 0;
+        scenario.position.x = 0;
+    });
+
+loadSword()
+    .then(object => {
+        scene.add(object);
+        object.position.x = 0;
+        object.position.y = 30
+        object.position.z = 30
+        object.scale.x = 10
+        object.scale.y = 10
+        object.scale.z = 10
+        
+        document.onkeydown = code => {
+          console.log(code)
+          object.position.x += keys["x"][code.code]
+          object.position.y += keys["y"][code.code]
+        }
+    }).catch(err => console.log(err.message));
 
 [camera.position.z, camera.position.x, camera.position.y] = [100, 50, 200];
 
@@ -33,7 +55,6 @@ loadSword(scene);
 camera.rotation.y = 180 * Math.PI / 180;
 camera.lookAt(scene.position);
 renderer.setPixelRatio( window.devicePixelRatio );
-
 
 const pointLight = new THREE.PointLight( 0xffffff, 1, 200 );
 const light = new THREE.AmbientLight({color: 0x404040}); // soft white light
