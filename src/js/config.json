@@ -1,12 +1,12 @@
 {
     "keys": {
-        "y": {
-            "ArrowDown": -10,
-            "ArrowUp": 10
+        "z": {
+            "ArrowDown": 1,
+            "ArrowUp": -1
         },
         "x": {
-            "ArrowLeft": -10,
-            "ArrowRight": 10
+            "ArrowLeft": -1,
+            "ArrowRight": 1
         }
     }
 }

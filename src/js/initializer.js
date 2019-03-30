@@ -35,16 +35,18 @@ loadSword()
     .then(object => {
         scene.add(object);
         object.position.x = 0;
-        object.position.y = 30
-        object.position.z = 30
-        object.scale.x = 10
-        object.scale.y = 10
-        object.scale.z = 10
+        object.position.y = 50
+        object.position.z = 0
+        object.scale.x = 5;
+        object.scale.y = 5;
+        object.scale.z = 5;
         
-        document.onkeydown = code => {
-          console.log(code)
-          object.position.x += keys["x"][code.code]
-          object.position.y += keys["y"][code.code]
+        document.onkeydown = ev => {
+          (keys['z'].hasOwnProperty(ev.key))
+            ? (object.position.z += keys["z"][ev.key])
+            : (keys['x'].hasOwnProperty(ev.key))
+                ? (object.position.x += keys["x"][ev.key])
+                : undefined;
         }
     }).catch(err => console.log(err.message));
 
@@ -57,10 +59,17 @@ camera.lookAt(scene.position);
 renderer.setPixelRatio( window.devicePixelRatio );
 
 const pointLight = new THREE.PointLight( 0xffffff, 1, 200 );
+const pointLight2 = new THREE.PointLight( 0xffffff, 1, 200 );
+const pointLight3 = new THREE.PointLight( 0xffffff, 1, 200 );
 const light = new THREE.AmbientLight({color: 0x404040}); // soft white light
 //scene.add(light);
 pointLight.position.set( 100, 100, 100 );
-scene.add( pointLight );
+pointLight2.position.set( -100, 100, 100 );
+pointLight3.position.set( 100, 200, 200 );
+
+scene.add(pointLight);
+scene.add(pointLight2);
+scene.add(pointLight3);
 
 export function animate() {
     //objs.forEach(({mixer}) => {mixer.update(clock.getDelta());});
