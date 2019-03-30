@@ -3,7 +3,7 @@ import * as OrbitControls from "three-orbitcontrols";
 
 import { loadSword,loadWalking, loadScenario } from './objects.js';
 import { keys } from "./config.json";
-
+import { checkCollision } from "./utils";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -24,6 +24,7 @@ scene.background = new THREE.Color(0xcccccc);
 // Load objects
 loadScenario()
     .then(scenario => {
+        scenario.name = 'scenario';
         scene.add(scenario);
         [scenario.position.x,
          scenario.position.y,
@@ -32,6 +33,8 @@ loadScenario()
 
 loadSword()
     .then(object => {
+        console.log(`Name: ${object.name}`);
+        object.name = 'character';
         scene.add(object);
         [object.position.x,
          object.position.y,
@@ -44,7 +47,10 @@ loadSword()
           (keys['z'].hasOwnProperty(ev.key))
             ? (object.position.z += keys["z"][ev.key])
             : (keys['x'].hasOwnProperty(ev.key))
-                ? (object.position.x += keys["x"][ev.key])
+                ? (() => {
+                    object.rotateY(90 * Math.PI / 180); 
+                    object.position.x += keys["x"][ev.key]
+                })()
                 : undefined;
         }
     }).catch(err => console.log(err.message));
@@ -73,5 +79,7 @@ scene.add(pointLight3);
 export function animate() {
     //objs.forEach(({mixer}) => {mixer.update(clock.getDelta());});
     renderer.render(scene, camera);
+   // if(scene.getObjectByName( "character", true ))
+   //     checkCollision(scene.getObjectByName('character', true));
     requestAnimationFrame(animate);
 }

@@ -1,5 +1,6 @@
 import * as GLTFLoader from "three-gltf-loader";
 import * as FBXLoader from "three-fbxloader-offical";
+import * as THREE from "three";
 import { MTLLoader, OBJLoader } from 'three-obj-mtl-loader';
 
 
@@ -40,6 +41,19 @@ export const loadSword = () => new Promise((resolve, reject) => (
       materials.preload()
       objLoader.setMaterials(materials)
       objLoader.load('../assets/models/chr_sword.obj', (object) => {
+        object.traverse(child => {
+            if(child.isMesh){
+                let position = child.geometry.attributes.position;
+                let vector = new THREE.Vector3();
+
+                for(let i = 0, l = position.count; i < l; i++) {
+                    vector.fromBufferAttribute(position, i);
+                    vector.applyMatrix4(child.matrixWorld);
+                }
+
+                console.log(vector)
+            }
+        })
         resolve(object);
       })
     })
