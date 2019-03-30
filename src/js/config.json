@@ -5,8 +5,14 @@
             "ArrowUp": -1
         },
         "x": {
-            "ArrowLeft": -1,
-            "ArrowRight": 1
+            "ArrowLeft": {
+                "move": -1,
+                "angle": 90
+            },
+            "ArrowRight": {
+                "move": 1,
+                "angle": -90
+            }
         }
     }
 }

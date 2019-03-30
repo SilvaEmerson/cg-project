@@ -48,8 +48,8 @@ loadSword()
             ? (object.position.z += keys["z"][ev.key])
             : (keys['x'].hasOwnProperty(ev.key))
                 ? (() => {
-                    object.rotateY(90 * Math.PI / 180); 
-                    object.position.x += keys["x"][ev.key]
+                    object.rotateY(keys.x[ev.key].angle * Math.PI / 180); 
+                    object.position.x += keys["x"][ev.key].move
                 })()
                 : undefined;
         }
