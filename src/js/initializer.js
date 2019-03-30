@@ -22,25 +22,24 @@ document.body.appendChild(renderer.domElement);
 scene.background = new THREE.Color(0xcccccc);
 
 // Load objects
-//loadWalking(scene, objs);
 loadScenario()
     .then(scenario => {
         scene.add(scenario);
-        scenario.position.y = 0;
-        scenario.position.z = 0;
-        scenario.position.x = 0;
+        [scenario.position.x,
+         scenario.position.y,
+         scenario.position.z] = [0, 0, 0];
     });
 
 loadSword()
     .then(object => {
         scene.add(object);
-        object.position.x = 0;
-        object.position.y = 50
-        object.position.z = 0
-        object.scale.x = 5;
-        object.scale.y = 5;
-        object.scale.z = 5;
-        
+        [object.position.x,
+         object.position.y,
+         object.position.z] = [0, 50, 0];
+        [object.scale.x,
+        object.scale.y,
+        object.scale.z] = [5, 5, 5];
+
         document.onkeydown = ev => {
           (keys['z'].hasOwnProperty(ev.key))
             ? (object.position.z += keys["z"][ev.key])
