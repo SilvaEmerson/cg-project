@@ -45,12 +45,9 @@ loadSword()
 
         document.onkeydown = ev => {
           (keys['z'].hasOwnProperty(ev.key))
-            ? (object.position.z += keys["z"][ev.key])
+            ? object.translateZ(keys["z"][ev.key])
             : (keys['x'].hasOwnProperty(ev.key))
-                ? (() => {
-                    object.rotateY(keys.x[ev.key].angle * Math.PI / 180); 
-                    object.position.x += keys["x"][ev.key].move
-                })()
+                ? object.rotateY(keys.x[ev.key].angle * Math.PI / 180) 
                 : undefined;
         }
     }).catch(err => console.log(err.message));
