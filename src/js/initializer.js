@@ -3,10 +3,8 @@ import * as OrbitControls from "three-orbitcontrols";
 
 import { loadSword,loadWalking, loadScenario } from './objects.js';
 import { keys } from "./config.json";
-import { createBoudingCubeVertices, initCannon, checkCollision } from "./utils";
+import { createBoudingCubeVertices, checkCollision } from "./utils";
 
-
-initCannon();
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
