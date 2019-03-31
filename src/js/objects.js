@@ -17,43 +17,19 @@ export const loadScenario = () => new Promise((resolve, reject) => (
       materials.preload()
       objLoader.setMaterials(materials)
       objLoader.load('../assets/models/cenario exagono.obj', object => {
+        object.name = 'scenario';
         resolve(object)
       })
     })
 ));
 
 
-export const loadWalking = (scene, objs) => ( 
-    fbxLoader.load('../assets/models/Samba Dancing.fbx', 
-        object => {
-            scene.add( object );
- 
-            object.position.x = 0;
-            object.position.y = 0;
-            object.position.z = 0;
-        }
-    )
-)
-
-
 export const loadSword = () => new Promise((resolve, reject) => (
-    mtlLoader.load('../assets/models/chr_sword.mtl', (materials) => {
+    mtlLoader.load('../assets/models/personagem com arma.mtl', (materials) => {
       materials.preload()
       objLoader.setMaterials(materials)
-      objLoader.load('../assets/models/chr_sword.obj', (object) => {
-        object.traverse(child => {
-            if(child.isMesh){
-                let position = child.geometry.attributes.position;
-                let vector = new THREE.Vector3();
-
-                for(let i = 0, l = position.count; i < l; i++) {
-                    vector.fromBufferAttribute(position, i);
-                    vector.applyMatrix4(child.matrixWorld);
-                }
-
-                console.log(vector)
-            }
-        })
+      objLoader.load('../assets/models/personagem com arma.obj', (object) => {
+        object.name = 'character';
         resolve(object);
       })
     })
